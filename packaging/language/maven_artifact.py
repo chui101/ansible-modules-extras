@@ -257,7 +257,7 @@ class MavenDownloader:
         self.module.params['http_agent'] = self.module.params.get('user_agent', None)
 
         response, info = fetch_url(self.module, url_to_use, timeout=req_timeout)
-        if info['status'] != 200:
+        if info['status'] != 200 or info['msg'][:2] != 'OK':
             raise ValueError(failmsg + " because of " + info['msg'] + "for URL " + url_to_use)
         else:
             return f(response)
